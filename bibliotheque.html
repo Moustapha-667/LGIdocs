@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Licence d'Informatique — UniDocs</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="entete">
+    <a class="logo" href="index.html">UniDocs</a>
+    <nav class="menu">
+      <a href="index.html">Accueil</a>
+      <a href="bibliotheque.html">Bibliothèque</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Le fil d'Ariane, le titre et la zone centrale sont remplis par js/app.js -->
+    <nav class="fil-ariane" id="fil-ariane" aria-label="Fil d'Ariane"></nav>
+
+    <h1 id="titre">Licence d'Informatique</h1>
+
+    <!-- Barre de recherche : gérée par js/app.js (pas d'envoi vers un serveur) -->
+    <form class="recherche" id="formulaire-recherche" role="search">
+      <label for="champ-recherche" class="cache">Rechercher une matière</label>
+      <input id="champ-recherche" type="search" placeholder="Rechercher une matière (ex. Analyse 2)">
+      <button type="submit" class="bouton">Rechercher</button>
+    </form>
+
+    <div id="zone">
+      <noscript><p class="vide">Active JavaScript pour consulter les documents.</p></noscript>
+    </div>
+  </main>
+
+  <footer class="pied">
+    <p>UniDocs — projet étudiant, Université Iba Der Thiam de Thiès</p>
+  </footer>
+
+  <!-- L'ordre compte : les données d'abord, puis le programme qui les utilise -->
+  <script src="js/donnees.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

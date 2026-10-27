@@ -1,0 +1,228 @@
+/* ==========================================================
+   UniDocs — feuille de style (thème bleu sombre + touches néon)
+   Principe « mobile d'abord » : on écrit d'abord le style du
+   téléphone, puis on adapte pour les grands écrans (voir la
+   règle @media tout en bas).
+   ========================================================== */
+
+/* Variables : pour changer l'allure du site, on modifie ici,
+   une seule fois, et toutes les pages suivent. */
+:root {
+  --fond: #060b1c;
+  --fond-carte: #0d1530;
+  --fond-survol: #131e42;
+  --bordure: #1f2d5c;
+  --texte: #e8edff;
+  --texte-doux: #93a2cf;
+  --neon: #29d9ff;          /* cyan : couleur néon principale */
+  --neon-violet: #8b5cff;   /* violet : couleur néon secondaire */
+  --lueur: 0 0 16px rgba(41, 217, 255, 0.35);
+  --rayon: 12px;
+}
+
+/* Remise à zéro : même base sur tous les navigateurs */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* un halo bleu discret en haut de la page, sur le fond sombre */
+  background:
+    radial-gradient(800px 360px at 50% -120px, rgba(41, 217, 255, 0.14), transparent),
+    var(--fond);
+  background-attachment: fixed;
+  color: var(--texte);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+main { padding: 1rem; max-width: 960px; margin: 0 auto; }
+
+h1 { font-size: 1.6rem; line-height: 1.25; margin-bottom: 0.75rem; text-shadow: 0 0 18px rgba(41, 217, 255, 0.35); }
+h2 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+h3 { font-size: 1.05rem; }
+a { color: var(--neon); }
+
+/* ---------- En-tête et menu ---------- */
+.entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(6, 11, 28, 0.9);
+  border-bottom: 1px solid var(--bordure);
+}
+.logo {
+  color: var(--neon);
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-shadow: 0 0 14px rgba(41, 217, 255, 0.7);
+}
+.menu { display: flex; gap: 1rem; }
+.menu a { color: var(--texte); text-decoration: none; font-size: 0.95rem; }
+.menu a:hover { color: var(--neon); }
+
+/* ---------- Page d'accueil ---------- */
+.hero { padding: 2rem 0 1.5rem; text-align: center; }
+.hero p { color: var(--texte-doux); margin: 0 auto 1.5rem; max-width: 560px; }
+
+/* ---------- Boutons ---------- */
+.bouton {
+  display: inline-block;
+  padding: 0.65rem 1.1rem;
+  background: var(--neon);
+  color: #04101f;
+  border: 2px solid var(--neon);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--lueur);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.bouton:hover { box-shadow: 0 0 24px rgba(41, 217, 255, 0.7); transform: translateY(-1px); }
+.bouton-clair { background: transparent; color: var(--neon); box-shadow: none; }
+.bouton-clair:hover { background: rgba(41, 217, 255, 0.1); box-shadow: var(--lueur); }
+
+/* ---------- Sections et cartes ---------- */
+.section { margin: 1.5rem 0; }
+
+.grille {
+  display: grid;
+  grid-template-columns: 1fr;   /* une colonne sur téléphone */
+  gap: 0.75rem;
+  list-style: none;
+}
+.carte {
+  background: var(--fond-carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 1rem;
+}
+.carte p { color: var(--texte-doux); font-size: 0.95rem; }
+
+.carte-lien {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.carte-lien h3 { color: var(--texte); }
+.carte-lien:hover {
+  background: var(--fond-survol);
+  border-color: var(--neon);
+  box-shadow: var(--lueur);
+}
+
+/* ---------- Fil d'Ariane ---------- */
+.fil-ariane { font-size: 0.9rem; color: var(--texte-doux); margin: 0.5rem 0 1rem; }
+.fil-ariane a { text-decoration: none; }
+.fil-ariane a:hover { text-decoration: underline; }
+
+/* ---------- Liste verticale (matières, sous-matières) ---------- */
+.liste-vertical { list-style: none; display: grid; gap: 0.6rem; }
+.ligne {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  background: var(--fond-carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  color: var(--texte);
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.ligne:hover { background: var(--fond-survol); border-color: var(--neon); box-shadow: var(--lueur); }
+.ligne-texte { min-width: 0; }
+.ligne-texte small { display: block; }
+.fleche { color: var(--neon); font-size: 1.3rem; }
+
+/* ---------- Recherche et filtres ---------- */
+.recherche { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+input, select {
+  min-width: 0;
+  padding: 0.65rem 0.8rem;
+  background: var(--fond-carte);
+  color: var(--texte);
+  border: 2px solid var(--bordure);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.recherche input { flex: 1; }
+input::placeholder { color: var(--texte-doux); }
+input:focus, select:focus { outline: none; border-color: var(--neon); box-shadow: var(--lueur); }
+
+.filtres { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.filtres select { flex: 1 1 140px; }
+
+/* Texte réservé aux lecteurs d'écran (invisible à l'œil) */
+.cache {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ---------- Liste de documents ---------- */
+.liste { display: grid; gap: 0.75rem; }
+.document {
+  background: var(--fond-carte);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 1rem;
+}
+.infos { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0 0.9rem; }
+.etiquette {
+  background: rgba(41, 217, 255, 0.1);
+  color: var(--neon);
+  border: 1px solid rgba(41, 217, 255, 0.35);
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.etiquette-type {
+  background: rgba(139, 92, 255, 0.15);
+  color: #b9a2ff;
+  border-color: rgba(139, 92, 255, 0.5);
+}
+.actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+small { font-weight: 400; color: var(--texte-doux); font-size: 0.82em; }
+
+/* ---------- Pied de page ---------- */
+.pied {
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--texte-doux);
+  border-top: 1px solid var(--bordure);
+}
+
+/* ---------- Message quand il n'y a rien à afficher ---------- */
+.vide {
+  color: var(--texte-doux);
+  padding: 1rem;
+  border: 1px dashed var(--bordure);
+  border-radius: var(--rayon);
+}
+
+/* Pour les personnes qui préfèrent éviter les animations */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* ==========================================================
+   Grands écrans (tablette et ordinateur) : à partir de 700px
+   ========================================================== */
+@media (min-width: 700px) {
+  h1 { font-size: 2.1rem; }
+  main { padding: 1.5rem; }
+  .grille { grid-template-columns: repeat(3, 1fr); }  /* trois colonnes */
+  .grille-2 { grid-template-columns: repeat(2, 1fr); }
+  .liste { grid-template-columns: repeat(2, 1fr); }
+}
