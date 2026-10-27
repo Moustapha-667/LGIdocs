@@ -134,6 +134,36 @@ function vueMatieres(niveau, semestre, option, ue) {
        <ol class="liste-vertical">${lignes.join("")}</ol></section>`);
 }
 
+// Nom du fichier enregistré sur le téléphone : "Analyse 1 - Examen 2023-2024.pdf"
+function nomDeFichier(matiere, d) {
+  const extension = d.fichier.includes(".") ? d.fichier.split(".").pop() : "pdf";
+  return (matiere.nom + " - " + d.type + " " + d.annee).replace(/[\\/:*?"<>|]/g, "-") + "." + extension;
+}
+
+// Le bouton « Télécharger » : on récupère le fichier nous-mêmes (fetch), puis on
+// demande au navigateur de l'ENREGISTRER. L'attribut HTML "download" seul est
+// ignoré par certains téléphones, qui se contentent alors d'afficher le PDF.
+// Si quelque chose échoue, on retombe sur l'ouverture normale du fichier.
+zone.addEventListener("click", async evenement => {
+  const bouton = evenement.target.closest("a[data-telechargement]");
+  if (!bouton) return;
+  evenement.preventDefault();
+  try {
+    const reponse = await fetch(bouton.href);
+    if (!reponse.ok) throw new Error("Fichier introuvable : " + reponse.status);
+    const url = URL.createObjectURL(await reponse.blob());
+    const lienTemporaire = document.createElement("a");
+    lienTemporaire.href = url;
+    lienTemporaire.download = bouton.dataset.nom;
+    document.body.appendChild(lienTemporaire);
+    lienTemporaire.click();
+    lienTemporaire.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  } catch (erreur) {
+    window.open(bouton.href, "_blank");
+  }
+});
+
 function carteDocument(d, niveau, semestre, matiere) {
   return `<article class="document">
     <h3>${matiere.nom} — ${d.type}</h3>
@@ -145,7 +175,8 @@ function carteDocument(d, niveau, semestre, matiere) {
     </p>
     <div class="actions">
       <a class="bouton" href="${d.fichier}" target="_blank" rel="noopener">Ouvrir</a>
-      <a class="bouton bouton-clair" href="${d.fichier}" download>Télécharger</a>
+      <a class="bouton bouton-clair" href="${d.fichier}" data-telechargement
+         data-nom="${echapper(nomDeFichier(matiere, d))}">Télécharger</a>
     </div>
   </article>`;
 }
