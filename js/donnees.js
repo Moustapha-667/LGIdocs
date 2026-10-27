@@ -1,5 +1,5 @@
 // ==========================================================
-// UniDocs — les DONNÉES du site
+// LGIdocs — les DONNÉES du site
 // Source : maquette officielle de la Licence d'Informatique
 // (UFR Sciences et Technologies, version 2018).
 //
