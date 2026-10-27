@@ -1,5 +1,5 @@
 // ==========================================================
-// UniDocs — la PAGE MODÈLE (une seule pour tout le site)
+// LGIdocs — la PAGE MODÈLE (une seule pour tout le site)
 //
 // Elle lit la fin de l'adresse (ce qui suit le #) et affiche
 // l'étape correspondante, avec les données de donnees.js.
@@ -50,7 +50,7 @@ function compterSujets(idMatiere) {
 
 const racine = [
   { texte: "Accueil", lien: "index.html" },
-  { texte: "Licence d'Informatique", lien: lien() }
+  { texte: "Licence Informatique", lien: lien() }
 ];
 
 // Construit le fil d'Ariane jusqu'à l'étage demandé.
@@ -68,7 +68,7 @@ function construireChemin(niveau, semestre, option, ue, matiere) {
 // Affiche une étape : titre, fil d'Ariane et contenu.
 function afficherEtape(nomPage, chemin, contenu) {
   titre.textContent = nomPage;
-  document.title = nomPage + " — UniDocs";
+  document.title = nomPage + " — LGIdocs";
 
   // Dans le fil d'Ariane, tout est un lien sauf le dernier élément.
   const morceaux = chemin.map((etape, i) =>
@@ -87,7 +87,7 @@ function vueNiveaux() {
     const numeros = n.semestres.map(s => s.numero).join(" et ");
     return carte(lien(n.id), n.nom, "Semestres " + numeros);
   });
-  afficherEtape("Licence d'Informatique", racine,
+  afficherEtape("Licence Informatique", racine,
     `<section class="section"><h2>Choisis ton niveau</h2>
        <div class="grille">${cartes.join("")}</div></section>`);
 }
