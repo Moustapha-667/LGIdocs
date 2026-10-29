@@ -87,7 +87,7 @@ function vueNiveaux() {
     const numeros = n.semestres.map(s => s.numero).join(" et ");
     return carte(lien(n.id), n.nom, "Semestres " + numeros);
   });
-  afficherEtape("Licence d'Informatique", racine,
+  afficherEtape("Licence Informatique", racine,
     `<section class="section"><h2>Choisis ton niveau</h2>
        <div class="grille">${cartes.join("")}</div></section>`);
 }
