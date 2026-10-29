@@ -1,5 +1,5 @@
 // ==========================================================
-// LGIdocs — la PAGE MODÈLE (une seule pour tout le site)
+// UniDocs — la PAGE MODÈLE (une seule pour tout le site)
 //
 // Elle lit la fin de l'adresse (ce qui suit le #) et affiche
 // l'étape correspondante, avec les données de donnees.js.
@@ -50,7 +50,7 @@ function compterSujets(idMatiere) {
 
 const racine = [
   { texte: "Accueil", lien: "index.html" },
-  { texte: "Licence Informatique", lien: lien() }
+  { texte: "Licence d'Informatique", lien: lien() }
 ];
 
 // Construit le fil d'Ariane jusqu'à l'étage demandé.
@@ -68,7 +68,7 @@ function construireChemin(niveau, semestre, option, ue, matiere) {
 // Affiche une étape : titre, fil d'Ariane et contenu.
 function afficherEtape(nomPage, chemin, contenu) {
   titre.textContent = nomPage;
-  document.title = nomPage + " — LGIdocs";
+  document.title = nomPage + " — UniDocs";
 
   // Dans le fil d'Ariane, tout est un lien sauf le dernier élément.
   const morceaux = chemin.map((etape, i) =>
@@ -87,7 +87,7 @@ function vueNiveaux() {
     const numeros = n.semestres.map(s => s.numero).join(" et ");
     return carte(lien(n.id), n.nom, "Semestres " + numeros);
   });
-  afficherEtape("Licence Informatique", racine,
+  afficherEtape("Licence d'Informatique", racine,
     `<section class="section"><h2>Choisis ton niveau</h2>
        <div class="grille">${cartes.join("")}</div></section>`);
 }
@@ -137,7 +137,8 @@ function vueMatieres(niveau, semestre, option, ue) {
 // Nom du fichier enregistré sur le téléphone : "Analyse 1 - Examen 2023-2024.pdf"
 function nomDeFichier(matiere, d) {
   const extension = d.fichier.includes(".") ? d.fichier.split(".").pop() : "pdf";
-  return (matiere.nom + " - " + d.type + " " + d.annee).replace(/[\\/:*?"<>|]/g, "-") + "." + extension;
+  const note = d.note ? " (" + d.note + ")" : "";
+  return (matiere.nom + " - " + d.type + " " + d.annee + note).replace(/[\\/:*?"<>|]/g, "-") + "." + extension;
 }
 
 // Le bouton « Télécharger » : on récupère le fichier nous-mêmes (fetch), puis on
@@ -166,7 +167,7 @@ zone.addEventListener("click", async evenement => {
 
 function carteDocument(d, niveau, semestre, matiere) {
   return `<article class="document">
-    <h3>${matiere.nom} — ${d.type}</h3>
+    <h3>${matiere.nom} — ${d.type}${d.note ? " <small>" + echapper(d.note) + "</small>" : ""}</h3>
     <p class="infos">
       <span class="etiquette">${niveau.court}</span>
       <span class="etiquette">Semestre ${semestre.numero}</span>
