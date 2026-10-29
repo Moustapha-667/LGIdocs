@@ -50,7 +50,7 @@ function compterSujets(idMatiere) {
 
 const racine = [
   { texte: "Accueil", lien: "index.html" },
-  { texte: "Licence d'Informatique", lien: lien() }
+  { texte: "Licence Informatique", lien: lien() }
 ];
 
 // Construit le fil d'Ariane jusqu'à l'étage demandé.
